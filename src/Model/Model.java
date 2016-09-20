@@ -1,5 +1,6 @@
 package Model;
 
+import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -60,12 +61,18 @@ public class Model {
 	
 	private IModelListener listener;
 	
+	private JPanel cards;
+	private CardLayout cl;
+	
 	public Model() {
 		
+		loadImages();	
+	}
+	
+	public Model(JPanel cards) {
+		this.cards = cards;
+		this.cl = (CardLayout) cards.getLayout();
 		loadImages();
-		
-		startGame();
-		
 	}
 
 	public int getFIELD_WIDTH() {
@@ -276,5 +283,9 @@ public class Model {
 	
 	public void endGame() {
 		gameOver = true;
+	}
+	
+	public void changeViewTo(String viewname) {
+		cl.show(cards, "Field");
 	}
 }

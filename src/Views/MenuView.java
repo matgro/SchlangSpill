@@ -20,6 +20,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import Controls.ButtonsHandler;
 import Model.Model;
 
 public class MenuView extends JPanel {
@@ -43,7 +44,8 @@ public class MenuView extends JPanel {
 		play = new JButton("Play");
 		options = new JButton("Options");
 		exit = new JButton("Exit");
-
+		play.addActionListener(new ButtonsHandler(model));
+		
 		add(play); 
 		add(options); 
 		add(exit);
