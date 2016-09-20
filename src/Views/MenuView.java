@@ -28,7 +28,8 @@ public class MenuView extends JPanel {
 	private Model model;
 	private Image img;
 	private JButton play, options, exit;
-
+	private ButtonsHandler bh;
+	
 	public MenuView(Model model) {
 		this.model = model;
 		
@@ -46,9 +47,12 @@ public class MenuView extends JPanel {
 		options = new JButton("Options");
 		options.setName("Options");
 		exit = new JButton("Exit");
+		exit.setName("Exit");
 		
-		play.addActionListener(new ButtonsHandler(model));
-		options.addActionListener(new ButtonsHandler(model));
+		bh = new ButtonsHandler(model);
+		play.addActionListener(bh);
+		options.addActionListener(bh);
+		exit.addActionListener(bh);
 		
 		add(play); 
 		add(options); 

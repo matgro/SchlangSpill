@@ -26,8 +26,10 @@ public class ButtonsHandler implements ActionListener {
 			model.changeViewTo("Gameover");
 		else if (b.getName() == "Options")
 			model.changeViewTo("Options");
+		else if (b.getName() == "Exit")
+			System.exit(0);
 		else
-			System.out.println(b.getText());
+			System.out.println("Oups in ButtonsHandler.");
 	}
 	
 }

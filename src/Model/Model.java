@@ -296,6 +296,9 @@ public class Model {
 		case "Options":
 			cl.show(cards, "Options");
 			break;
+		case "Gameover":
+			cl.show(cards, "Gameover");
+			break;
 		default:
 			System.out.println("Nothing.");
 		}
