@@ -42,9 +42,13 @@ public class MenuView extends JPanel {
 		add(logo, BorderLayout.CENTER);
 
 		play = new JButton("Play");
+		play.setName("Field");
 		options = new JButton("Options");
+		options.setName("Options");
 		exit = new JButton("Exit");
+		
 		play.addActionListener(new ButtonsHandler(model));
+		options.addActionListener(new ButtonsHandler(model));
 		
 		add(play); 
 		add(options); 

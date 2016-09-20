@@ -3,6 +3,8 @@ package Controls;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.JButton;
+
 import Model.Model;
 
 public class ButtonsHandler implements ActionListener {
@@ -15,8 +17,17 @@ public class ButtonsHandler implements ActionListener {
 	
 	@Override
 	public void actionPerformed(ActionEvent ae) {
-		// TODO Auto-generated method stub
-		model.changeViewTo("Field");
+		JButton b = (JButton) ae.getSource();
+		if (b.getName() == "Field")
+			model.changeViewTo("Field");
+		else if (b.getName() == "Menu")
+			model.changeViewTo("Menu");
+		else if (b.getName() == "Gameover")
+			model.changeViewTo("Gameover");
+		else if (b.getName() == "Options")
+			model.changeViewTo("Options");
+		else
+			System.out.println(b.getText());
 	}
 	
 }

@@ -293,8 +293,11 @@ public class Model {
 		case "Menu":
 			cl.show(cards, "Menu");
 			break;
+		case "Options":
+			cl.show(cards, "Options");
+			break;
 		default:
-			//nothing;
+			System.out.println("Nothing.");
 		}
 		
 	}
