@@ -286,6 +286,16 @@ public class Model {
 	}
 	
 	public void changeViewTo(String viewname) {
-		cl.show(cards, "Field");
+		switch(viewname){
+		case "Field":
+			cl.show(cards, "Field");
+			break;
+		case "Menu":
+			cl.show(cards, "Menu");
+			break;
+		default:
+			//nothing;
+		}
+		
 	}
 }

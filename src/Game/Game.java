@@ -49,7 +49,8 @@ public class Game extends JFrame {
         CardLayout cl = (CardLayout) cards.getLayout();
         cl.show(cards, "Menu");
         addKeyListener(new ControlsHandler(model));
-
+        
+        setFocusable(true);
         setResizable(false);
         pack();
         setTitle("Snake");

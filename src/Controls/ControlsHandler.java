@@ -37,6 +37,10 @@ public class ControlsHandler implements KeyListener {
         	model.turnDown();
         	System.out.println("Down.");
         }
+        if (key == KeyEvent.VK_ESCAPE) {
+        	model.changeViewTo("Menu");
+        	System.out.println("Escape.");
+        }
     }
 
 	@Override
