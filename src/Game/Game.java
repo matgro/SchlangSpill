@@ -40,7 +40,7 @@ public class Game extends JFrame {
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
-        System.out.println("Test");
+        System.out.println("Test3");
     }
     
 
