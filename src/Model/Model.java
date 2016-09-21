@@ -20,6 +20,7 @@ import javax.swing.Timer;
 
 import Controls.ControlsHandler;
 import Controls.FrameRateHandler;
+import Controls.MouseHandler;
 
 public class Model {
 
@@ -38,6 +39,9 @@ public class Model {
 	private int apple_x;
 	private int apple_y;
 	
+	private int mouse_x = -100;
+	private int mouse_y = -100;
+	
 	private enum Direction {UP, DOWN, RIGHT, LEFT};
 	private Direction currentDirection;
 	private Direction nextDirection;
@@ -45,6 +49,7 @@ public class Model {
 	private boolean gameOver = false;
 
 	private Timer timer;
+	private Timer mouse_timer;
 	private int score;
 	
 	// Snake images
@@ -57,7 +62,7 @@ public class Model {
 	private Image apple;
 	private Image mouse;
 	
-	private ImageIcon iis, iih, iic, iit, iia;
+	private ImageIcon iis, iih, iic, iit, iia, iim;
 	
 	private IModelListener listener;
 	
@@ -73,6 +78,7 @@ public class Model {
 		this.cards = cards;
 		this.cl = (CardLayout) cards.getLayout();
 		loadImages();
+		startGame();
 	}
 
 	public int getFIELD_WIDTH() {
@@ -102,7 +108,13 @@ public class Model {
 	public int getApple_y() {
 		return apple_y;
 	}
-
+	
+	public int getMouse_x() {
+		return mouse_x;
+	}
+	public int getMouse_y() {
+		return mouse_y;
+	}
 	public Image getHead() {
 		return head;
 	}
@@ -121,6 +133,9 @@ public class Model {
 
 	public Image getApple() {
 		return apple;
+	}
+	public Image getMouse() {
+		return mouse;
 	}
 	
 	public void setNextDirection(Direction nextDirection) {
@@ -149,6 +164,10 @@ public class Model {
 		iia = new ImageIcon("apple.png");
 		apple = iia.getImage();
 		apple = apple.getScaledInstance(TILE_SIZE, TILE_SIZE, Image.SCALE_DEFAULT);
+		
+		iim = new ImageIcon("mouse.png");
+		mouse = iim.getImage();
+		mouse = mouse.getScaledInstance(TILE_SIZE, TILE_SIZE, Image.SCALE_DEFAULT);
 
 	}
 
@@ -169,6 +188,18 @@ public class Model {
 		
         timer = new Timer(SPEED, frh);
         timer.start();
+        
+        startMouseTimer();
+	}
+	
+	public void startMouseTimer() {
+		mouse_timer = new Timer(10000, new MouseHandler(this));
+		mouse_timer.start();
+	}
+	
+	public void placeMouse() {
+		mouse_x = (((int) (Math.random() * RAND_POS) * TILE_SIZE));
+		mouse_y = (((int) (Math.random() * RAND_POS) * TILE_SIZE));
 	}
 
 	public void checkApple() {

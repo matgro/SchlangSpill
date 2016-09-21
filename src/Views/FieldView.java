@@ -40,7 +40,9 @@ public class FieldView extends JPanel implements IModelListener {
 			int snakeLength = model.getSnakeLength();
 
 			g.drawImage(model.getApple(), model.getApple_x(), model.getApple_y(), this);
-
+			
+			g.drawImage(model.getMouse(), model.getMouse_x(), model.getMouse_y(), this);
+			
 			for (int z = 0; z < snakeLength; z++) {
 				
 				
