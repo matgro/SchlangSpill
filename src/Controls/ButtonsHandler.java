@@ -28,6 +28,8 @@ public class ButtonsHandler implements ActionListener {
 			model.changeViewTo("Options");
 		else if (b.getName() == "Exit")
 			System.exit(0);
+		else if( b.getName() == "Back")
+		      model.changeViewTo("Menu");
 		else
 			System.out.println("Oups in ButtonsHandler.");
 	}

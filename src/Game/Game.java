@@ -8,7 +8,7 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import Controls.ControlsHandler;
+import Controls.KeysHandler;
 import Model.Model;
 import Views.FieldView;
 import Views.GameOverView;
@@ -48,7 +48,7 @@ public class Game extends JFrame {
         this.getContentPane().add(cards);
         CardLayout cl = (CardLayout) cards.getLayout();
         cl.show(cards, "Menu");
-        addKeyListener(new ControlsHandler(model));
+        addKeyListener(new KeysHandler(model));
         
         setFocusable(true);
         setResizable(false);

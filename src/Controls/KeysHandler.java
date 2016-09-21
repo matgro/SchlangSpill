@@ -5,11 +5,11 @@ import java.awt.event.KeyListener;
 
 import Model.Model;
 
-public class ControlsHandler implements KeyListener {
+public class KeysHandler implements KeyListener {
 
 	private Model model;
 	
-	public ControlsHandler(Model model) {
+	public KeysHandler(Model model) {
 		this.model = model;
 	}
 	
@@ -17,26 +17,47 @@ public class ControlsHandler implements KeyListener {
     public void keyPressed(KeyEvent e) {
 
         int key = e.getKeyCode();
-
+        
         if (key == KeyEvent.VK_LEFT) {
-        	model.turnLeft();
+        	model.getSnake1().turnLeft();
         	System.out.println("Left.");
         }
 
         if (key == KeyEvent.VK_RIGHT) {
-        	model.turnRight();
+        	model.getSnake1().turnRight();
         	System.out.println("Right.");
         }
 
         if (key == KeyEvent.VK_UP) {
-        	model.turnUp();
+        	model.getSnake1().turnUp();
         	System.out.println("Up.");
         }
 
         if (key == KeyEvent.VK_DOWN) {
-        	model.turnDown();
+        	model.getSnake1().turnDown();
         	System.out.println("Down.");
         }
+        
+        if (key == KeyEvent.VK_A) {
+        	model.getSnake2().turnLeft();
+        	System.out.println("Left.");
+        }
+
+        if (key == KeyEvent.VK_D) {
+        	model.getSnake2().turnRight();
+        	System.out.println("Right.");
+        }
+
+        if (key == KeyEvent.VK_W) {
+        	model.getSnake2().turnUp();
+        	System.out.println("Up.");
+        }
+
+        if (key == KeyEvent.VK_S) {
+        	model.getSnake2().turnDown();
+        	System.out.println("Down.");
+        }
+        
         if (key == KeyEvent.VK_ESCAPE) {
         	model.changeViewTo("Menu");
         	System.out.println("Escape.");

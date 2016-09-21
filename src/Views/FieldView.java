@@ -13,6 +13,7 @@ import javax.swing.JPanel;
 
 import Model.IModelListener;
 import Model.Model;
+import Model.Snake;
 
 public class FieldView extends JPanel implements IModelListener {
 
@@ -20,7 +21,7 @@ public class FieldView extends JPanel implements IModelListener {
 
 	public FieldView(Model model) {
 		this.model = model;
-		
+
 		setPreferredSize(new Dimension(480, 480));
 		setBackground(Color.BLACK);
 	}
@@ -32,39 +33,35 @@ public class FieldView extends JPanel implements IModelListener {
 
 	@Override
 	public void paintComponent(Graphics g) {
-		
+
 		super.paintComponent(g);
 
 		if (!model.isGameOver()) {
+			for (Snake snake : model.getSnakes()) {
+				int snakeLength = snake.length;
+				int gap = 2;
+				g.drawImage(model.getApple(), model.getApple_x(), model.getApple_y(), this);
+				g.drawImage(model.getMouse(), model.getMouse_x(), model.getMouse_y(), this);
 
-			int snakeLength = model.getSnakeLength();
+				for (int z = 0; z < snakeLength; z++) {
 
-			g.drawImage(model.getApple(), model.getApple_x(), model.getApple_y(), this);
-			
-			g.drawImage(model.getMouse(), model.getMouse_x(), model.getMouse_y(), this);
-			
-			for (int z = 0; z < snakeLength; z++) {
-				
-				
-				if (z == 0) {
-					g.drawImage(model.getHead(), model.getX(z), model.getY(z), this);
-				} else if (z == snakeLength - 1) {
-					g.drawImage(model.getTail(), model.getX(z), model.getY(z), this);
-				} else {
-					g.drawImage(model.getStraight(), model.getX(z), model.getY(z), this);
+					if (z == 0) {
+						//g.drawImage(model.getHead(), snake.x[z], snake.y[z], this);
+						g.setColor(snake.color);
+						g.drawOval(snake.x[z] + gap, snake.y[z] + gap, model.getTileSize()-2*gap, model.getTileSize()-2*gap);
+					} else if (z == snakeLength - 1) {
+						//g.drawImage(model.getTail(), snake.x[z], snake.y[z], this);
+						g.drawOval(snake.x[z] + gap, snake.y[z] + gap, model.getTileSize()-2*gap, model.getTileSize()-2*gap);
+					} else {
+						//g.drawImage(model.getStraight(), snake.x[z], snake.y[z], this);
+						g.drawOval(snake.x[z] + gap, snake.y[z] + gap, model.getTileSize()-2*gap, model.getTileSize()-2*gap);
+					}
 				}
+
+				Toolkit.getDefaultToolkit().sync();
 			}
-
-			Toolkit.getDefaultToolkit().sync();
-
 		} else {
-	        String msg = "Game Over. Your score: "+"\n"+String.valueOf(model.getScore());
-	        Font small = new Font("Helvetica", Font.BOLD, 14);
-	        FontMetrics metr = getFontMetrics(small);
-
-	        g.setColor(Color.white);
-	        g.setFont(small);
-	        g.drawString(msg, (model.getFIELD_WIDTH() - metr.stringWidth(msg)) / 2, model.getFIELD_HEIGHT() / 2);
+			model.changeViewTo("Gameover");
 		}
 	}
 }
