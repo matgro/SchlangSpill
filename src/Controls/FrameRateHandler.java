@@ -19,6 +19,7 @@ public class FrameRateHandler implements ActionListener {
         if (!model.isGameOver()) {
 
             model.checkApple();
+            model.checkMouse();
             model.checkCollision();
             model.move();
         }

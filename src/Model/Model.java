@@ -13,6 +13,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
+import java.util.TimerTask;
 
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
@@ -21,6 +22,7 @@ import javax.swing.Timer;
 import Controls.ControlsHandler;
 import Controls.FrameRateHandler;
 import Controls.MouseHandler;
+import Controls.MouseLifecycleHandler;
 
 public class Model {
 
@@ -41,6 +43,7 @@ public class Model {
 	
 	private int mouse_x = -100;
 	private int mouse_y = -100;
+	private boolean mouse_alive = true;
 	
 	private enum Direction {UP, DOWN, RIGHT, LEFT};
 	private Direction currentDirection;
@@ -50,6 +53,8 @@ public class Model {
 
 	private Timer timer;
 	private Timer mouse_timer;
+	private Timer mouse_lifecycle_timer;
+	
 	private int score;
 	
 	// Snake images
@@ -189,17 +194,23 @@ public class Model {
         timer = new Timer(SPEED, frh);
         timer.start();
         
-        startMouseTimer();
-	}
-	
-	public void startMouseTimer() {
-		mouse_timer = new Timer(10000, new MouseHandler(this));
+        mouse_timer = new Timer(10000, new MouseHandler(this));
 		mouse_timer.start();
+		
+		mouse_lifecycle_timer = new Timer(5000, new MouseLifecycleHandler(this));
 	}
 	
 	public void placeMouse() {
 		mouse_x = (((int) (Math.random() * RAND_POS) * TILE_SIZE));
 		mouse_y = (((int) (Math.random() * RAND_POS) * TILE_SIZE));
+		
+		mouse_lifecycle_timer.start();
+	}
+	
+	public void mouseDisappear() {
+		mouse_x = -1000;
+		mouse_y = -1000;
+		mouse_lifecycle_timer.stop();
 	}
 
 	public void checkApple() {
@@ -209,6 +220,14 @@ public class Model {
 			snakeLength++;
 			score += 100;
 			placeApple();
+		}
+	}
+	public void checkMouse() {
+		
+		if ((x[0] == mouse_x) && (y[0] == mouse_y)) {
+			snakeLength++;
+			score += 200;
+			mouseDisappear();
 		}
 	}
 
