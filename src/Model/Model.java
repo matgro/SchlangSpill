@@ -28,12 +28,12 @@ import Views.FieldView;
 
 public class Model {
 
-	private final int TILE_SIZE = 16; // pixels
-	private final int FIELD_WIDTH = 480; // pixels of tiles
-	private final int FIELD_HEIGHT = 480; // pixels of tiles
+	private final int TILE_SIZE = 48; // pixels
+	private final int FIELD_WIDTH = 1440; // pixels of tiles
+	private final int FIELD_HEIGHT = 1440; // pixels of tiles
 	private final int TILES_TOTAL = (FIELD_WIDTH / TILE_SIZE) * (FIELD_HEIGHT / TILE_SIZE);
 	private final int RAND_POS = (FIELD_WIDTH / TILE_SIZE) - 1;
-	private final int SPEED = 80;
+	private int SPEED = 80;
 
 	private int snakeLength; // # of tiles
 
@@ -77,6 +77,9 @@ public class Model {
 	ArrayList<Snake> winners = new ArrayList<Snake>();
 	ArrayList<Snake> losers = new ArrayList<Snake>();
 
+	private FrameRateHandler frh;
+	private int player_number = 1;
+	
 	public Model() {
 
 		loadImages();
@@ -86,14 +89,21 @@ public class Model {
 		this.cards = cards;
 		this.cl = (CardLayout) cards.getLayout();
 		
-		snake1 = new Snake(TILES_TOTAL, TILE_SIZE, 80, 80, Direction.UP, Direction.UP, Color.GREEN);
-		snake2 = new Snake(TILES_TOTAL, TILE_SIZE, 384, 80, Direction.UP, Direction.UP, Color.RED);
-		
-		snakes.add(snake1);
-		snakes.add(snake2);
+		setPlayerNumber(1);
 
 		loadImages();
 		startGame();
+	}
+	
+	public void setPlayerNumber(int number) {
+		this.player_number = number;
+		snakes.clear();
+		snake1 = new Snake(TILES_TOTAL, TILE_SIZE, TILE_SIZE, TILE_SIZE, Direction.UP, Direction.UP, Color.GREEN);
+		snake2 = new Snake(TILES_TOTAL, TILE_SIZE, FIELD_WIDTH - TILE_SIZE, TILE_SIZE, Direction.UP, Direction.UP, Color.RED);
+		snakes.add(snake1);
+		if (number == 2)
+			snakes.add(snake2);
+		
 	}
 	
 	public Dimension getDimension() {
@@ -211,9 +221,9 @@ public class Model {
 
 		placeApple();
 
-		FrameRateHandler frh = new FrameRateHandler(this);
+		this.frh = new FrameRateHandler(this);
 
-		timer = new Timer(SPEED, frh);
+		timer = new Timer(SPEED, this.frh);
 		timer.start();
 
 		mouse_timer = new Timer(10000, new MouseHandler(this));
@@ -335,6 +345,7 @@ public class Model {
 	}
 
 	public void updateView() {
+		if (listener != null)
 		listener.modelChanged();
 	}
 
@@ -344,6 +355,12 @@ public class Model {
 
 	public void endGame() {
 		gameOver = true;
+	}
+	
+	public void setSpeed(int speed) {
+		timer.stop();
+		timer = new Timer(speed, this.frh);
+		timer.start();
 	}
 
 	public void changeViewTo(String viewname) {

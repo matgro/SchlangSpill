@@ -35,7 +35,7 @@ public class MenuView extends JPanel {
 		this.model = model;
 		
 		
-		setPreferredSize(new Dimension(480, 480));
+		setPreferredSize(model.getDimension());
 		setBackground(new Color(255, 128, 64));
 
 		ImageIcon img = new ImageIcon(new ImageIcon("snake-logo.png").getImage().getScaledInstance(256, 128, Image.SCALE_DEFAULT));

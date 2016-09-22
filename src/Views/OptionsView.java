@@ -16,6 +16,7 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 
 import Controls.ButtonsHandler;
+import Controls.OptionsHandler;
 import Custom.MyButton;
 import Model.Model;
 
@@ -23,11 +24,15 @@ public class OptionsView extends JPanel {
 	private Model model;
 	private MyButton back;
 	private ButtonsHandler bh;
+	private OptionsHandler oh;
+	
 	public OptionsView(Model model) {
 		this.model = model;
+		this.oh = new OptionsHandler(model);
 		
-		setPreferredSize(new Dimension(480, 480));
+		setPreferredSize(model.getDimension());
 		setBackground(new Color(255, 128, 64));
+		
 		ImageIcon img = new ImageIcon(new ImageIcon("snake-logo.png").getImage().getScaledInstance(256, 128, Image.SCALE_DEFAULT));
 		JLabel logo = new JLabel(img);
 		
@@ -60,6 +65,8 @@ public class OptionsView extends JPanel {
 		ButtonGroup group1 = new ButtonGroup();
 		JPanel radioPanel1 = new JPanel(new GridLayout(0,2));
 	    JRadioButton radio = new JRadioButton ("1 Player", true);
+		radio.setName("1");
+		radio.addActionListener(oh);
 	    radio.setBackground(new Color(255, 128, 64));
 		group1.add(radio);
 		gbc.gridx=0;
@@ -67,6 +74,8 @@ public class OptionsView extends JPanel {
 		radioPanel1.add(radio);
 	    
 		radio = new JRadioButton("2 Players",false);
+		radio.setName("2");
+		radio.addActionListener(oh);
 	    radio.setBackground(new Color(255, 128, 64));
 		group1.add(radio);
 
@@ -91,6 +100,8 @@ public class OptionsView extends JPanel {
 		JPanel radioPanel2 = new JPanel(new GridLayout(0,3));
 
 		radio = new JRadioButton("Easy", true);
+		radio.setName("Easy");
+		radio.addActionListener(oh);
 	    radio.setBackground(new Color(255, 128, 64));
 		group2.add(radio);
 		gbc.gridx=0;
@@ -98,11 +109,15 @@ public class OptionsView extends JPanel {
 		radioPanel2.add(radio);
 		
 		radio = new JRadioButton("Medium", false);
+		radio.setName("Medium");
+		radio.addActionListener(oh);
 	    radio.setBackground(new Color(255, 128, 64));
 		group2.add(radio);
 		radioPanel2.add(radio);
 		
 		radio = new JRadioButton("Hard", false);
+		radio.setName("Hard");
+		radio.addActionListener(oh);
 	    radio.setBackground(new Color(255, 128, 64));
 		group2.add(radio);
 		radioPanel2.add(radio);

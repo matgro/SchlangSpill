@@ -22,7 +22,7 @@ public class FieldView extends JPanel implements IModelListener {
 	public FieldView(Model model) {
 		this.model = model;
 
-		setPreferredSize(new Dimension(480, 480));
+		setPreferredSize(model.getDimension());
 		setBackground(Color.BLACK);
 	}
 
@@ -48,7 +48,7 @@ public class FieldView extends JPanel implements IModelListener {
 					if (z == 0) {
 						//g.drawImage(model.getHead(), snake.x[z], snake.y[z], this);
 						g.setColor(snake.color);
-						g.drawOval(snake.x[z] + gap, snake.y[z] + gap, model.getTileSize()-2*gap, model.getTileSize()-2*gap);
+						g.fillOval(snake.x[z] + gap, snake.y[z] + gap, model.getTileSize()-2*gap, model.getTileSize()-2*gap);
 					} else if (z == snakeLength - 1) {
 						//g.drawImage(model.getTail(), snake.x[z], snake.y[z], this);
 						g.drawOval(snake.x[z] + gap, snake.y[z] + gap, model.getTileSize()-2*gap, model.getTileSize()-2*gap);
