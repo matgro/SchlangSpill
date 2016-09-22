@@ -86,7 +86,7 @@ public class Model {
 		this.cards = cards;
 		this.cl = (CardLayout) cards.getLayout();
 		
-		snake1 = new Snake(TILES_TOTAL, TILE_SIZE, 80, 80, Direction.UP, Direction.UP, Color.BLUE);
+		snake1 = new Snake(TILES_TOTAL, TILE_SIZE, 80, 80, Direction.UP, Direction.UP, Color.GREEN);
 		snake2 = new Snake(TILES_TOTAL, TILE_SIZE, 384, 80, Direction.UP, Direction.UP, Color.RED);
 		
 		snakes.add(snake1);
@@ -95,13 +95,9 @@ public class Model {
 		loadImages();
 		startGame();
 	}
-
-	public Snake getSnake1() {
-		return snake1;
-	}
-
-	public Snake getSnake2() {
-		return snake2;
+	
+	public Dimension getDimension() {
+		return new Dimension(FIELD_WIDTH, FIELD_HEIGHT);
 	}
 
 	public Snake getSnake(int index) {

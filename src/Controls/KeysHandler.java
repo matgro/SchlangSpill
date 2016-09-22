@@ -19,42 +19,42 @@ public class KeysHandler implements KeyListener {
         int key = e.getKeyCode();
         
         if (key == KeyEvent.VK_LEFT) {
-        	model.getSnake1().turnLeft();
+        	model.getSnake(0).turnLeft();
         	System.out.println("Left.");
         }
 
         if (key == KeyEvent.VK_RIGHT) {
-        	model.getSnake1().turnRight();
+        	model.getSnake(0).turnRight();
         	System.out.println("Right.");
         }
 
         if (key == KeyEvent.VK_UP) {
-        	model.getSnake1().turnUp();
+        	model.getSnake(0).turnUp();
         	System.out.println("Up.");
         }
 
         if (key == KeyEvent.VK_DOWN) {
-        	model.getSnake1().turnDown();
+        	model.getSnake(0).turnDown();
         	System.out.println("Down.");
         }
         
         if (key == KeyEvent.VK_A) {
-        	model.getSnake2().turnLeft();
+        	model.getSnake(1).turnLeft();
         	System.out.println("Left.");
         }
 
         if (key == KeyEvent.VK_D) {
-        	model.getSnake2().turnRight();
+        	model.getSnake(1).turnRight();
         	System.out.println("Right.");
         }
 
         if (key == KeyEvent.VK_W) {
-        	model.getSnake2().turnUp();
+        	model.getSnake(1).turnUp();
         	System.out.println("Up.");
         }
 
         if (key == KeyEvent.VK_S) {
-        	model.getSnake2().turnDown();
+        	model.getSnake(1).turnDown();
         	System.out.println("Down.");
         }
         

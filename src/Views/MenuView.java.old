@@ -21,14 +21,13 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import Controls.ButtonsHandler;
-import Custom.MyButton;
 import Model.Model;
 
 public class MenuView extends JPanel {
 
 	private Model model;
 	private Image img;
-	private MyButton play, options, exit;
+	private JButton play, options, exit;
 	private ButtonsHandler bh;
 	
 	public MenuView(Model model) {
@@ -41,41 +40,23 @@ public class MenuView extends JPanel {
 		ImageIcon img = new ImageIcon(new ImageIcon("snake-logo.png").getImage().getScaledInstance(256, 128, Image.SCALE_DEFAULT));
 		JLabel logo = new JLabel(img);
 		
-		GridBagLayout layout = new GridBagLayout();
-		GridBagConstraints gbc = new GridBagConstraints();
-		gbc.insets = new Insets(5,0,5,0);
-		setLayout(layout);
-		gbc.gridx=0;
-		gbc.gridy=0;
-		
-		add(logo,gbc);
+		add(logo, BorderLayout.CENTER);
 
-		play = new MyButton("Play");
+		play = new JButton("Play");
 		play.setName("Field");
-		play.setPreferredSize(new Dimension(100,35));
-		options = new MyButton("Options");
+		options = new JButton("Options");
 		options.setName("Options");
-		options.setPreferredSize(new Dimension(100,35));
-		exit = new MyButton("Exit");
+		exit = new JButton("Exit");
 		exit.setName("Exit");
-		exit.setPreferredSize(new Dimension(100,35));
 		
 		bh = new ButtonsHandler(model);
-
 		play.addActionListener(bh);
-
 		options.addActionListener(bh);
-
 		exit.addActionListener(bh);
-		gbc.gridx=0;
-		gbc.gridy=1;
-		add(play,gbc); 
-		gbc.gridx=0;
-		gbc.gridy=2;
-		add(options,gbc); 
-		gbc.gridx=0;
-		gbc.gridy=3;
-		add(exit,gbc);
+		
+		add(play); 
+		add(options); 
+		add(exit);
 	}
 
 }
