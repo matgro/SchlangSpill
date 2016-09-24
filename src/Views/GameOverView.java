@@ -27,7 +27,7 @@ public class GameOverView extends JPanel {
 		int i = 32;
 		String msg = "Game Over. The winners are:" + System.lineSeparator();
 
-		Font small = new Font("Helvetica", Font.BOLD, 14);
+		Font small = new Font("Helvetica", Font.BOLD, 24);
 		FontMetrics metr = getFontMetrics(small);
 
 		g.setColor(Color.white);

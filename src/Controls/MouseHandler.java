@@ -13,6 +13,7 @@ public class MouseHandler implements ActionListener {
 		this.model = model;
 	}
 	@Override
+	
 	public void actionPerformed(ActionEvent ae) {
 		model.placeMouse();
 	}

@@ -29,8 +29,8 @@ import Views.FieldView;
 public class Model {
 
 	private final int TILE_SIZE = 48; // pixels
-	private final int FIELD_WIDTH = 1440; // pixels of tiles
-	private final int FIELD_HEIGHT = 1440; // pixels of tiles
+	private final int FIELD_WIDTH = 960; // pixels of tiles
+	private final int FIELD_HEIGHT = 960; // pixels of tiles
 	private final int TILES_TOTAL = (FIELD_WIDTH / TILE_SIZE) * (FIELD_HEIGHT / TILE_SIZE);
 	private final int RAND_POS = (FIELD_WIDTH / TILE_SIZE) - 1;
 	private int SPEED = 80;
@@ -42,9 +42,13 @@ public class Model {
 
 	private int mouse_x = -100;
 	private int mouse_y = -100;
-	
+
 	public enum Direction {
 		UP, DOWN, RIGHT, LEFT
+	};
+
+	public enum State {
+		IDLE, PAUSED, RUNNING
 	};
 
 	private boolean gameOver = false;
@@ -78,8 +82,9 @@ public class Model {
 	ArrayList<Snake> losers = new ArrayList<Snake>();
 
 	private FrameRateHandler frh;
-	private int player_number = 1;
-	
+	public int player_number = 1;
+	public State game_state;
+
 	public Model() {
 
 		loadImages();
@@ -88,24 +93,25 @@ public class Model {
 	public Model(JPanel cards) {
 		this.cards = cards;
 		this.cl = (CardLayout) cards.getLayout();
-		
+
 		setPlayerNumber(1);
 
 		loadImages();
 		startGame();
 	}
-	
+
 	public void setPlayerNumber(int number) {
 		this.player_number = number;
 		snakes.clear();
 		snake1 = new Snake(TILES_TOTAL, TILE_SIZE, TILE_SIZE, TILE_SIZE, Direction.UP, Direction.UP, Color.GREEN);
-		snake2 = new Snake(TILES_TOTAL, TILE_SIZE, FIELD_WIDTH - TILE_SIZE, TILE_SIZE, Direction.UP, Direction.UP, Color.RED);
+		snake2 = new Snake(TILES_TOTAL, TILE_SIZE, FIELD_WIDTH - TILE_SIZE, TILE_SIZE, Direction.UP, Direction.UP,
+				Color.RED);
 		snakes.add(snake1);
 		if (number == 2)
 			snakes.add(snake2);
-		
+
 	}
-	
+
 	public Dimension getDimension() {
 		return new Dimension(FIELD_WIDTH, FIELD_HEIGHT);
 	}
@@ -117,11 +123,11 @@ public class Model {
 	public ArrayList<Snake> getSnakes() {
 		return snakes;
 	}
-	
+
 	public ArrayList<Snake> getWinners() {
 		return winners;
 	}
-	
+
 	public ArrayList<Snake> getLosers() {
 		return losers;
 	}
@@ -177,7 +183,7 @@ public class Model {
 	public Image getMouse() {
 		return mouse;
 	}
-	
+
 	public int getTileSize() {
 		return TILE_SIZE;
 	}
@@ -216,7 +222,7 @@ public class Model {
 	}
 
 	public void startGame() {
-
+		game_state = State.RUNNING;
 		snakeLength = 3;
 
 		placeApple();
@@ -230,6 +236,19 @@ public class Model {
 		mouse_timer.start();
 
 		mouse_lifecycle_timer = new Timer(5000, new MouseLifecycleHandler(this));
+	}
+
+	public void pauseGame() {
+		if (game_state == State.RUNNING) {
+			game_state = State.PAUSED;
+			timer.stop();
+		} else if (game_state == State.PAUSED)
+			resumeGame();
+	}
+
+	public void resumeGame() {
+		game_state = State.RUNNING;
+		timer.start();
 	}
 
 	public void placeMouse() {
@@ -306,7 +325,7 @@ public class Model {
 		for (Snake s : snakes) {
 			for (int z = s.length; z > 0; z--) {
 
-				if ( (snake.x[0] == s.x[z]) && (snake.y[0] == s.y[z])) {
+				if ((snake.x[0] == s.x[z]) && (snake.y[0] == s.y[z])) {
 					snake.game_over = true;
 					System.out.println("Collision.");
 				}
@@ -346,7 +365,7 @@ public class Model {
 
 	public void updateView() {
 		if (listener != null)
-		listener.modelChanged();
+			listener.modelChanged();
 	}
 
 	public int getScore() {
@@ -356,7 +375,7 @@ public class Model {
 	public void endGame() {
 		gameOver = true;
 	}
-	
+
 	public void setSpeed(int speed) {
 		timer.stop();
 		timer = new Timer(speed, this.frh);
